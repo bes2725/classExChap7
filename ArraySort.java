@@ -9,7 +9,7 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 
-public class ArraySort extends JFrame implements ActionListener
+public class ArraySort extends JFrame
 {
 	private JFrame frame;
 	private JPanel panel;
@@ -17,9 +17,9 @@ public class ArraySort extends JFrame implements ActionListener
 	private JLabel label2;
 	private JLabel sorted;
 	private JButton btn;
-	private JTextField txt[];
-	private double num[];
-	private double hold;
+	public JTextField txt[];
+	public double num[];
+	public double hold;
 
 	public ArraySort()
 	{
@@ -38,8 +38,36 @@ public class ArraySort extends JFrame implements ActionListener
 		sorted.setText("-------------------");
 
 		btn = new JButton("Sort it!");
-		btn.addActionListener(this);
+		btn.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				double[] num = new double[10];
 
+				for (int i=0; i<10; i++)
+				{
+					System.out.println(txt[i].getText());
+					num[i] = Double.parseDouble(txt[i].getText());
+				}
+	
+				for (int i=0;  i<10; i++)
+				{
+			
+					for (int j=i+1; j<10; j++)
+					{
+						if (num[i] < num[j])
+						{	
+							hold = num[i];
+							num[i] = num[j];
+							num[j] = hold;
+						}
+					}
+				}
+
+				sorted.setText("bonga");
+			}
+		});
+		
 		panel.add(label1);
 		panel.add(label2);
 
@@ -60,36 +88,7 @@ public class ArraySort extends JFrame implements ActionListener
 		frame.add(panel);
 
 	}
-	public void actionPerformed(ActionEvent e)
-	{
-		double[] num = new double[10];
 
-		for (int i=0; i<10; i++)
-		{
-			num[i] = Double.parseDouble(txt[i].getText());
-		}
-
-		for (int i=0;  i<10; i++)
-		{
-			
-			for (int j=i+1; j<10; j++)
-			{
-				/*so, for whatever reason, I'm failing horribly right here.
-				**the program doesn't want to get the text from the textfield,
-				**and I don't know what I'm doing wrong*/
-
-				if (num[i] < num[j])
-				{
-					hold = num[i];
-					num[i] = num[j];
-					num[j] = hold;
-				}
-			}
-		}
-
-		sorted.setText("bonga");
-		
-	}
 	public static void main(String[] args)
 	{
 		new ArraySort();
